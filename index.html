@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>OneMore — Account Settings Prototype</title>
+  <title>OneMore — Account Settings v1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -19,7 +19,7 @@
       --surface-modal: #1c1c1e;
       --surface-control: #2c2c2e;
       --accent: #42d3a5;
-      --accent-soft: rgba(66, 211, 165, 0.14);
+      --accent-soft: rgba(66, 211, 165, 0.1);
       --accent-text: #0a0f0d;
       --destructive: #ff5c52;
       --radius-pill: 28px;
@@ -59,9 +59,9 @@
       border-radius: 40px;
       overflow: hidden;
       box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.06),
-        0 24px 80px rgba(0, 0, 0, 0.55),
-        0 0 120px rgba(66, 211, 165, 0.04);
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 24px 80px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(66, 211, 165, 0.018);
       min-height: 720px;
     }
 
@@ -78,7 +78,7 @@
 
     @keyframes fadeIn {
       from {
-        opacity: 0.85;
+        opacity: 0.97;
       }
       to {
         opacity: 1;
@@ -92,12 +92,34 @@
 
     .nav {
       display: grid;
-      grid-template-columns: 44px 1fr 44px;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      padding: 8px 8px 12px;
+      column-gap: 4px;
+      padding: 12px var(--page-pad) 16px;
       min-height: 44px;
       flex-shrink: 0;
       position: relative;
+    }
+
+    /* Per-screen header rhythm */
+    #screen-home .nav {
+      padding: 14px var(--page-pad) 18px;
+    }
+
+    #screen-settings .nav,
+    #screen-settings-general .nav,
+    #screen-settings-account .nav,
+    #screen-settings-terms .nav,
+    #screen-language .nav {
+      padding: 12px var(--page-pad) 15px;
+    }
+
+    #screen-webview .nav {
+      padding: 11px var(--page-pad) 14px;
+    }
+
+    #screen-login .nav {
+      padding: 16px var(--page-pad) 20px;
     }
 
     .nav::after {
@@ -109,13 +131,18 @@
       height: 1px;
       background: linear-gradient(
         90deg,
-        transparent,
-        rgba(66, 211, 165, 0.35) 45%,
-        rgba(66, 211, 165, 0.35) 55%,
-        transparent
+        transparent 0%,
+        rgba(255, 255, 255, 0.03) 22%,
+        rgba(66, 211, 165, 0.085) 50%,
+        rgba(255, 255, 255, 0.03) 78%,
+        transparent 100%
       );
-      opacity: 0.5;
+      opacity: 0.55;
       pointer-events: none;
+    }
+
+    #screen-home .nav::after {
+      opacity: 0.35;
     }
 
     .nav-back {
@@ -171,12 +198,20 @@
 
     .content {
       flex: 1;
-      padding: 12px 0 32px;
+      padding: 10px 0 32px;
       overflow-y: auto;
       min-height: 0;
     }
 
-    /* PRD V.2: collapsed root — push logout toward bottom */
+    #screen-home .hero {
+      padding-top: 8px;
+    }
+
+    #screen-login .hero {
+      padding-top: 10px;
+    }
+
+    /* v1: collapsed root — push logout toward bottom */
     .content.content--collapsed {
       display: flex;
       flex-direction: column;
@@ -198,11 +233,11 @@
       border: 1px solid var(--separator);
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.32);
     }
 
     .settings-box:first-child {
-      margin-top: 2px;
+      margin-top: 4px;
     }
 
     .settings-box .row,
@@ -380,16 +415,16 @@
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(180deg, #52e0b8 0%, var(--accent) 100%);
+      background: linear-gradient(180deg, #46d6a9 0%, #42d3a5 48%, #40cfa2 100%);
       color: var(--accent-text);
       cursor: pointer;
       min-width: 200px;
-      box-shadow: 0 4px 24px rgba(66, 211, 165, 0.25);
+      box-shadow: 0 4px 20px rgba(66, 211, 165, 0.16);
     }
 
     .btn-primary:active {
       transform: scale(0.98);
-      filter: brightness(0.95);
+      filter: brightness(0.96);
     }
 
     /* Language */
@@ -648,9 +683,9 @@
     }
 
     .btn-logout-confirm {
-      background: linear-gradient(180deg, #52e0b8 0%, var(--accent) 100%);
+      background: linear-gradient(180deg, #46d6a9 0%, #42d3a5 48%, #40cfa2 100%);
       color: var(--accent-text);
-      box-shadow: 0 4px 24px rgba(66, 211, 165, 0.22);
+      box-shadow: 0 4px 18px rgba(66, 211, 165, 0.14);
     }
 
     .sr-only {
@@ -681,13 +716,13 @@
         <span></span>
       </header>
       <div class="hero">
-        <p class="hero-logo">Prototype</p>
-        <p class="hero-sub">Tap below to open Settings — PRD V.2 collapsed headers, then drill into each section.</p>
+        <p class="hero-logo">Account Settings v1</p>
+        <p class="hero-sub">Tap below to open the v1 Settings flow — collapsed section headers, then drill into each section.</p>
         <button type="button" class="btn-primary" id="btnOpenSettings">Open Settings</button>
       </div>
     </section>
 
-    <!-- Settings (collapsed root — PRD V.2) -->
+    <!-- Settings (collapsed root — v1) -->
     <section class="screen" id="screen-settings" data-screen="settings" aria-label="Settings">
       <div class="status-spacer"></div>
       <header class="nav">
@@ -741,7 +776,7 @@
             </span>
           </button>
         </div>
-        <p class="sub-screen-hint">English &amp; Bahasa Indonesia only in V1.1; more languages planned.</p>
+        <p class="sub-screen-hint">English &amp; Bahasa Indonesia only in v1; more languages planned.</p>
       </main>
     </section>
 
@@ -812,7 +847,7 @@
           </button>
         </div>
         <p class="proto-hint" style="padding: 16px var(--page-pad) 0; border: none; margin: 0;">
-          OB1.1: English and Bahasa Indonesia only (per PRD).
+          v1: English and Bahasa Indonesia only (per PRD).
         </p>
       </main>
     </section>
@@ -911,7 +946,7 @@
           title: "About",
           url: "https://onemore.app/about",
           html:
-            "<h3>About OneMore</h3><p>OneMore helps you create and share. Version OB1.1 prototype.</p>",
+            "<h3>About OneMore</h3><p>OneMore helps you create and share. Account Settings v1 prototype.</p>",
         },
       };
 
