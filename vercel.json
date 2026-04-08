@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/mockup/account-settings-ob1.1.html", "destination": "/index.html" }
+  ]
+}
