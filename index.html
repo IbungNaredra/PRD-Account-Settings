@@ -360,25 +360,25 @@
       background: rgba(255, 69, 58, 0.08);
     }
 
-    .logout-icon {
+    /* Line-art “frame + exit arrow” logout glyph (stroke matches destructive red) */
+    .logout-icon-svg {
       width: 22px;
       height: 22px;
-      border: 1.5px solid rgba(255, 255, 255, 0.65);
-      border-radius: 50%;
       flex-shrink: 0;
-      position: relative;
+      color: var(--destructive);
     }
 
-    .logout-icon::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 4px;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.65);
+    .row--logout {
+      color: var(--destructive);
+    }
+
+    .row--logout .row-label {
+      color: var(--destructive);
+      font-weight: 500;
+    }
+
+    .row--logout:active {
+      background: rgba(255, 92, 82, 0.1);
     }
 
     /* Home + Login placeholders */
@@ -750,7 +750,30 @@
         <div class="settings-box settings-box--logout">
           <button type="button" class="row row--logout" id="rowLogout">
             <span class="row-left">
-              <span class="logout-icon" aria-hidden="true"></span>
+              <svg
+                class="logout-icon-svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5.25 6.75h6.25M5.25 6.75v10.5M5.25 17.25h6.25"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M13.5 12H20M17.25 9.25l3 2.75-3 2.75"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
               <span class="row-label">Log Out</span>
             </span>
           </button>
