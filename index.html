@@ -171,7 +171,7 @@
 
     .content {
       flex: 1;
-      padding: 8px 0 32px;
+      padding: 12px 0 32px;
       overflow-y: auto;
       min-height: 0;
     }
@@ -188,22 +188,37 @@
       min-height: 48px;
     }
 
-    .collapsed-stack > .row:first-child {
-      border-top: 1px solid var(--separator);
+    /**
+     * Grouped “settings box” lists — inset rounded panels on black (see Loopit-style ref),
+     * using existing OneMore surfaces + mint row highlight.
+     */
+    .settings-box {
+      margin: 0 var(--page-pad) 10px;
+      background: var(--surface-modal);
+      border: 1px solid var(--separator);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
     }
 
-    #screen-settings-general .content > .row:first-of-type,
-    #screen-settings-account .content > .row:first-of-type,
-    #screen-settings-terms .content > .row:first-of-type {
-      border-top: 1px solid var(--separator);
+    .settings-box:first-child {
+      margin-top: 2px;
     }
 
-    .logout-standalone {
-      margin-top: 8px;
-      border-top: 1px solid var(--separator);
+    .settings-box .row,
+    .settings-box .lang-option {
+      border-bottom: none;
+      border-radius: 0;
+      padding-left: 16px;
+      padding-right: 16px;
+      min-height: 50px;
     }
 
-    .logout-standalone .chevron {
+    .settings-box--logout {
+      margin-top: 4px;
+    }
+
+    .row--logout .chevron {
       display: none;
     }
 
@@ -230,7 +245,8 @@
     }
 
     .sub-screen-hint {
-      padding: 12px var(--page-pad) 0;
+      padding: 8px var(--page-pad) 0;
+      margin: 0;
       font-size: 13px;
       line-height: 1.35;
       color: var(--muted);
@@ -680,26 +696,30 @@
         <span></span>
       </header>
       <main class="content content--collapsed">
-        <div class="collapsed-stack" role="navigation" aria-label="Settings sections">
-          <button type="button" class="row" id="navGeneral">
-            <span class="row-label">General</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-          <button type="button" class="row" id="navAccount">
-            <span class="row-label">Account</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-          <button type="button" class="row" id="navTerms">
-            <span class="row-label">Terms and Policies</span>
-            <span class="chevron" aria-hidden="true">›</span>
+        <div class="collapsed-stack">
+          <div class="settings-box" role="navigation" aria-label="Settings sections">
+            <button type="button" class="row" id="navGeneral">
+              <span class="row-label">General</span>
+              <span class="chevron" aria-hidden="true">›</span>
+            </button>
+            <button type="button" class="row" id="navAccount">
+              <span class="row-label">Account</span>
+              <span class="chevron" aria-hidden="true">›</span>
+            </button>
+            <button type="button" class="row" id="navTerms">
+              <span class="row-label">Terms and Policies</span>
+              <span class="chevron" aria-hidden="true">›</span>
+            </button>
+          </div>
+        </div>
+        <div class="settings-box settings-box--logout">
+          <button type="button" class="row row--logout" id="rowLogout">
+            <span class="row-left">
+              <span class="logout-icon" aria-hidden="true"></span>
+              <span class="row-label">Log Out</span>
+            </span>
           </button>
         </div>
-        <button type="button" class="row logout-standalone" id="rowLogout">
-          <span class="row-left">
-            <span class="logout-icon" aria-hidden="true"></span>
-            <span class="row-label">Log Out</span>
-          </span>
-        </button>
       </main>
     </section>
 
@@ -712,13 +732,15 @@
         <span></span>
       </header>
       <main class="content">
-        <button type="button" class="row" id="rowLanguage">
-          <span class="row-label">Language</span>
-          <span class="row-meta">
-            <span class="value" id="languageValue">English</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </span>
-        </button>
+        <div class="settings-box">
+          <button type="button" class="row" id="rowLanguage">
+            <span class="row-label">Language</span>
+            <span class="row-meta">
+              <span class="value" id="languageValue">English</span>
+              <span class="chevron" aria-hidden="true">›</span>
+            </span>
+          </button>
+        </div>
         <p class="sub-screen-hint">English &amp; Bahasa Indonesia only in V1.1; more languages planned.</p>
       </main>
     </section>
@@ -732,9 +754,11 @@
         <span></span>
       </header>
       <main class="content">
-        <button type="button" class="row destructive" id="openDeleteModal">
-          <span class="row-label">Delete Account</span>
-        </button>
+        <div class="settings-box">
+          <button type="button" class="row destructive" id="openDeleteModal">
+            <span class="row-label">Delete Account</span>
+          </button>
+        </div>
       </main>
     </section>
 
@@ -747,22 +771,24 @@
         <span></span>
       </header>
       <main class="content">
-        <button type="button" class="row" data-legal="terms">
-          <span class="row-label">Terms &amp; Conditions</span>
-          <span class="chevron" aria-hidden="true">›</span>
-        </button>
-        <button type="button" class="row" data-legal="privacy">
-          <span class="row-label">Privacy Policy</span>
-          <span class="chevron" aria-hidden="true">›</span>
-        </button>
-        <button type="button" class="row" data-legal="dns">
-          <span class="row-label">Do Not Sell My Data</span>
-          <span class="chevron" aria-hidden="true">›</span>
-        </button>
-        <button type="button" class="row" data-legal="about">
-          <span class="row-label">About OneMore</span>
-          <span class="chevron" aria-hidden="true">›</span>
-        </button>
+        <div class="settings-box">
+          <button type="button" class="row" data-legal="terms">
+            <span class="row-label">Terms &amp; Conditions</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="row" data-legal="privacy">
+            <span class="row-label">Privacy Policy</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="row" data-legal="dns">
+            <span class="row-label">Do Not Sell My Data</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="row" data-legal="about">
+            <span class="row-label">About OneMore</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+        </div>
       </main>
     </section>
 
@@ -775,14 +801,16 @@
         <span></span>
       </header>
       <main class="content">
-        <button type="button" class="lang-option" data-lang="en" id="langEn">
-          <span>English</span>
-          <span class="check" aria-hidden="true">✓</span>
-        </button>
-        <button type="button" class="lang-option" data-lang="id" id="langId">
-          <span>Bahasa Indonesia</span>
-          <span class="check" aria-hidden="true">✓</span>
-        </button>
+        <div class="settings-box">
+          <button type="button" class="lang-option" data-lang="en" id="langEn">
+            <span>English</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+          <button type="button" class="lang-option" data-lang="id" id="langId">
+            <span>Bahasa Indonesia</span>
+            <span class="check" aria-hidden="true">✓</span>
+          </button>
+        </div>
         <p class="proto-hint" style="padding: 16px var(--page-pad) 0; border: none; margin: 0;">
           OB1.1: English and Bahasa Indonesia only (per PRD).
         </p>
