@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>OneMore — Account Settings v1</title>
+  <title>onemore — Account Settings v1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      /* OneMore-style tokens (profile / dark UI reference) */
+      /* onemore-style tokens (profile / dark UI reference) */
       --bg: #000000;
       --text: #ffffff;
       --muted: #9a9aa3;
@@ -22,6 +22,7 @@
       --accent-soft: rgba(66, 211, 165, 0.1);
       --accent-text: #0a0f0d;
       --destructive: #ff5c52;
+      --logout-red: #ff2f2f;
       --radius-pill: 28px;
       --radius-card: 24px;
       --radius-control: 16px;
@@ -225,7 +226,7 @@
 
     /**
      * Grouped “settings box” lists — inset rounded panels on black (see Loopit-style ref),
-     * using existing OneMore surfaces + mint row highlight.
+     * using existing onemore surfaces + mint row highlight.
      */
     .settings-box {
       margin: 0 var(--page-pad) 10px;
@@ -360,25 +361,31 @@
       background: rgba(255, 69, 58, 0.08);
     }
 
-    /* Line-art “frame + exit arrow” logout glyph (stroke matches destructive red) */
+    /* Line-art “frame + exit arrow” logout glyph */
     .logout-icon-svg {
       width: 22px;
       height: 22px;
       flex-shrink: 0;
-      color: var(--destructive);
+      color: var(--logout-red);
     }
 
     .row--logout {
-      color: var(--destructive);
+      justify-content: center;
+      color: var(--logout-red);
+    }
+
+    .row--logout .row-left {
+      justify-content: center;
+      gap: 10px;
     }
 
     .row--logout .row-label {
-      color: var(--destructive);
-      font-weight: 500;
+      color: var(--logout-red);
+      font-weight: 600;
     }
 
     .row--logout:active {
-      background: rgba(255, 92, 82, 0.1);
+      background: rgba(255, 52, 52, 0.14);
     }
 
     /* Home + Login placeholders */
@@ -712,7 +719,7 @@
       <div class="status-spacer"></div>
       <header class="nav">
         <span></span>
-        <h1 class="nav-title">OneMore</h1>
+        <h1 class="nav-title">onemore</h1>
         <span></span>
       </header>
       <div class="hero">
@@ -748,7 +755,7 @@
           </div>
         </div>
         <div class="settings-box settings-box--logout">
-          <button type="button" class="row row--logout" id="rowLogout">
+          <button type="button" class="row row--logout" id="rowLogout" aria-label="log out">
             <span class="row-left">
               <svg
                 class="logout-icon-svg"
@@ -774,7 +781,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              <span class="row-label">Log Out</span>
+              <span class="row-label">log out</span>
             </span>
           </button>
         </div>
@@ -843,7 +850,7 @@
             <span class="chevron" aria-hidden="true">›</span>
           </button>
           <button type="button" class="row" data-legal="about">
-            <span class="row-label">About OneMore</span>
+            <span class="row-label">about onemore</span>
             <span class="chevron" aria-hidden="true">›</span>
           </button>
         </div>
@@ -906,7 +913,7 @@
       <div class="status-spacer"></div>
       <header class="nav">
         <span></span>
-        <h1 class="nav-title">OneMore</h1>
+        <h1 class="nav-title">onemore</h1>
         <span></span>
       </header>
       <div class="hero">
@@ -936,7 +943,7 @@
         <h3 class="modal-title" id="logoutTitle">Log out?</h3>
         <p class="modal-body">You will need to sign in again to use your account.</p>
         <div class="modal-actions">
-          <button type="button" class="btn btn-logout-confirm" id="confirmLogout">Log Out</button>
+          <button type="button" class="btn btn-logout-confirm" id="confirmLogout">log out</button>
           <button type="button" class="btn btn-cancel" id="cancelLogout">Cancel</button>
         </div>
       </div>
@@ -951,7 +958,7 @@
           title: "Terms",
           url: "https://onemore.app/legal/terms",
           html:
-            "<h3>Terms &amp; Conditions</h3><p>Last updated: April 2026</p><p>This is placeholder copy for the prototype. The live app opens this page in an in-app WebView.</p><p>By using OneMore you agree to these terms.</p>",
+            "<h3>Terms &amp; Conditions</h3><p>Last updated: April 2026</p><p>This is placeholder copy for the prototype. The live app opens this page in an in-app WebView.</p><p>By using onemore you agree to these terms.</p>",
         },
         privacy: {
           title: "Privacy",
@@ -969,7 +976,7 @@
           title: "About",
           url: "https://onemore.app/about",
           html:
-            "<h3>About OneMore</h3><p>OneMore helps you create and share. Account Settings v1 prototype.</p>",
+            "<h3>about onemore</h3><p>onemore helps you create and share. Account Settings v1 prototype.</p>",
         },
       };
 
