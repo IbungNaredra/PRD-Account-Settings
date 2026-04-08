@@ -106,6 +106,15 @@
       color: var(--text);
     }
 
+    .nav-title--long {
+      font-size: 15px;
+      line-height: 1.15;
+      white-space: normal;
+      max-width: 240px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .nav-action {
       border: none;
       background: transparent;
@@ -124,6 +133,38 @@
       flex: 1;
       padding: 8px 0 32px;
       overflow-y: auto;
+      min-height: 0;
+    }
+
+    /* PRD V.2: collapsed root — push logout toward bottom */
+    .content.content--collapsed {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 24px;
+    }
+
+    .collapsed-stack {
+      flex: 1;
+      min-height: 48px;
+    }
+
+    .collapsed-stack > .row:first-child {
+      border-top: 1px solid var(--separator);
+    }
+
+    #screen-settings-general .content > .row:first-of-type,
+    #screen-settings-account .content > .row:first-of-type,
+    #screen-settings-terms .content > .row:first-of-type {
+      border-top: 1px solid var(--separator);
+    }
+
+    .logout-standalone {
+      margin-top: 8px;
+      border-top: 1px solid var(--separator);
+    }
+
+    .logout-standalone .chevron {
+      display: none;
     }
 
     .section {
@@ -146,6 +187,13 @@
     .section-label.log-cap {
       text-transform: none;
       letter-spacing: normal;
+    }
+
+    .sub-screen-hint {
+      padding: 12px var(--page-pad) 0;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--muted);
     }
 
     .row {
@@ -561,12 +609,12 @@
       </header>
       <div class="hero">
         <p class="hero-logo">Prototype</p>
-        <p class="hero-sub">Tap below to open Account Settings and walk through OB1.1 flows.</p>
+        <p class="hero-sub">Tap below to open Settings — PRD V.2 collapsed headers, then drill into each section.</p>
         <button type="button" class="btn-primary" id="btnOpenSettings">Open Settings</button>
       </div>
     </section>
 
-    <!-- Settings -->
+    <!-- Settings (collapsed root — PRD V.2) -->
     <section class="screen" id="screen-settings" data-screen="settings" aria-label="Settings">
       <div class="status-spacer"></div>
       <header class="nav">
@@ -574,55 +622,90 @@
         <h1 class="nav-title">Setting</h1>
         <span></span>
       </header>
+      <main class="content content--collapsed">
+        <div class="collapsed-stack" role="navigation" aria-label="Settings sections">
+          <button type="button" class="row" id="navGeneral">
+            <span class="row-label">General</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="row" id="navAccount">
+            <span class="row-label">Account</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+          <button type="button" class="row" id="navTerms">
+            <span class="row-label">Terms and Policies</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </button>
+        </div>
+        <button type="button" class="row logout-standalone" id="rowLogout">
+          <span class="row-left">
+            <span class="logout-icon" aria-hidden="true"></span>
+            <span class="row-label">Log Out</span>
+          </span>
+        </button>
+      </main>
+    </section>
+
+    <!-- Settings ▸ General -->
+    <section class="screen" id="screen-settings-general" data-screen="settings-general" aria-label="General">
+      <div class="status-spacer"></div>
+      <header class="nav">
+        <button type="button" class="nav-back" id="settingsGeneralBack" aria-label="Back">&lt;</button>
+        <h1 class="nav-title">General</h1>
+        <span></span>
+      </header>
       <main class="content">
-        <section class="section" aria-labelledby="sec-general">
-          <h2 id="sec-general" class="section-label">General</h2>
-          <button type="button" class="row" id="rowLanguage">
-            <span class="row-label">Language</span>
-            <span class="row-meta">
-              <span class="value" id="languageValue">English</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </span>
-          </button>
-        </section>
+        <button type="button" class="row" id="rowLanguage">
+          <span class="row-label">Language</span>
+          <span class="row-meta">
+            <span class="value" id="languageValue">English</span>
+            <span class="chevron" aria-hidden="true">›</span>
+          </span>
+        </button>
+        <p class="sub-screen-hint">English &amp; Bahasa Indonesia only in V1.1; more languages planned.</p>
+      </main>
+    </section>
 
-        <section class="section" aria-labelledby="sec-terms">
-          <h2 id="sec-terms" class="section-label">Terms and Policies</h2>
-          <button type="button" class="row" data-legal="terms">
-            <span class="row-label">Terms &amp; Conditions</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-          <button type="button" class="row" data-legal="privacy">
-            <span class="row-label">Privacy Policy</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-          <button type="button" class="row" data-legal="dns">
-            <span class="row-label">Do Not Sell My Data</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-          <button type="button" class="row" data-legal="about">
-            <span class="row-label">About OneMore</span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-        </section>
+    <!-- Settings ▸ Account -->
+    <section class="screen" id="screen-settings-account" data-screen="settings-account" aria-label="Account">
+      <div class="status-spacer"></div>
+      <header class="nav">
+        <button type="button" class="nav-back" id="settingsAccountBack" aria-label="Back">&lt;</button>
+        <h1 class="nav-title">Account</h1>
+        <span></span>
+      </header>
+      <main class="content">
+        <button type="button" class="row destructive" id="openDeleteModal">
+          <span class="row-label">Delete Account</span>
+        </button>
+      </main>
+    </section>
 
-        <section class="section" aria-labelledby="sec-account">
-          <h2 id="sec-account" class="section-label">Account</h2>
-          <button type="button" class="row destructive" id="openDeleteModal">
-            <span class="row-label">Delete Account</span>
-          </button>
-        </section>
-
-        <section class="section" aria-labelledby="sec-log">
-          <h2 id="sec-log" class="section-label log-cap">Log</h2>
-          <button type="button" class="row" id="rowLogout">
-            <span class="row-left">
-              <span class="logout-icon" aria-hidden="true"></span>
-              <span class="row-label">Log Out</span>
-            </span>
-            <span class="chevron" aria-hidden="true">›</span>
-          </button>
-        </section>
+    <!-- Settings ▸ Terms and Policies -->
+    <section class="screen" id="screen-settings-terms" data-screen="settings-terms" aria-label="Terms and Policies">
+      <div class="status-spacer"></div>
+      <header class="nav">
+        <button type="button" class="nav-back" id="settingsTermsBack" aria-label="Back">&lt;</button>
+        <h1 class="nav-title nav-title--long">Terms and Policies</h1>
+        <span></span>
+      </header>
+      <main class="content">
+        <button type="button" class="row" data-legal="terms">
+          <span class="row-label">Terms &amp; Conditions</span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+        <button type="button" class="row" data-legal="privacy">
+          <span class="row-label">Privacy Policy</span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+        <button type="button" class="row" data-legal="dns">
+          <span class="row-label">Do Not Sell My Data</span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+        <button type="button" class="row" data-legal="about">
+          <span class="row-label">About OneMore</span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
       </main>
     </section>
 
@@ -747,10 +830,12 @@
         },
       };
 
-      var phone = document.getElementById("phone");
       var screens = {
         home: document.getElementById("screen-home"),
         settings: document.getElementById("screen-settings"),
+        settingsGeneral: document.getElementById("screen-settings-general"),
+        settingsAccount: document.getElementById("screen-settings-account"),
+        settingsTerms: document.getElementById("screen-settings-terms"),
         language: document.getElementById("screen-language"),
         webview: document.getElementById("screen-webview"),
         login: document.getElementById("screen-login"),
@@ -761,6 +846,7 @@
       var langId = document.getElementById("langId");
 
       var selectedLang = "en";
+      var webviewReturn = "settings";
 
       function showScreen(name) {
         Object.keys(screens).forEach(function (key) {
@@ -793,9 +879,10 @@
         document.getElementById("loadingOverlay").classList.remove("is-visible");
       }
 
-      function openWebview(key) {
+      function openWebview(key, returnScreen) {
         var cfg = LEGAL[key];
         if (!cfg) return;
+        webviewReturn = returnScreen || "settings";
         document.getElementById("webviewTitle").textContent = cfg.title;
         document.getElementById("webviewUrl").textContent = cfg.url;
         document.getElementById("webviewArticle").innerHTML = cfg.html;
@@ -805,7 +892,7 @@
       }
 
       function closeWebview() {
-        showScreen("settings");
+        showScreen(webviewReturn);
       }
 
       function goLogin(headline, sub) {
@@ -814,7 +901,6 @@
         showScreen("login");
       }
 
-      /* Navigation */
       document.getElementById("btnOpenSettings").addEventListener("click", function () {
         showScreen("settings");
       });
@@ -823,13 +909,33 @@
         showScreen("home");
       });
 
+      document.getElementById("navGeneral").addEventListener("click", function () {
+        showScreen("settingsGeneral");
+      });
+      document.getElementById("navAccount").addEventListener("click", function () {
+        showScreen("settingsAccount");
+      });
+      document.getElementById("navTerms").addEventListener("click", function () {
+        showScreen("settingsTerms");
+      });
+
+      document.getElementById("settingsGeneralBack").addEventListener("click", function () {
+        showScreen("settings");
+      });
+      document.getElementById("settingsAccountBack").addEventListener("click", function () {
+        showScreen("settings");
+      });
+      document.getElementById("settingsTermsBack").addEventListener("click", function () {
+        showScreen("settings");
+      });
+
       document.getElementById("rowLanguage").addEventListener("click", function () {
         syncLanguageUi();
         showScreen("language");
       });
 
       document.getElementById("languageBack").addEventListener("click", function () {
-        showScreen("settings");
+        showScreen("settingsGeneral");
       });
 
       function setLang(code) {
@@ -844,9 +950,9 @@
         setLang("id");
       });
 
-      document.querySelectorAll("[data-legal]").forEach(function (btn) {
+      document.querySelectorAll("#screen-settings-terms [data-legal]").forEach(function (btn) {
         btn.addEventListener("click", function () {
-          openWebview(btn.getAttribute("data-legal"));
+          openWebview(btn.getAttribute("data-legal"), "settingsTerms");
         });
       });
 
