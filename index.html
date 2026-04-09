@@ -255,9 +255,6 @@
       margin-top: 4px;
     }
 
-    .row--logout .chevron {
-      display: none;
-    }
 
     .section {
       margin-top: 28px;
@@ -279,6 +276,93 @@
     .section-label.log-cap {
       text-transform: none;
       letter-spacing: normal;
+    }
+
+    /**
+     * Settings root (collapsed) — reference: grey ALL CAPS group labels, bold row labels,
+     * grouped cards on black; standalone Log Out with no group label above it.
+     */
+    .settings-root .collapsed-stack {
+      padding-top: 4px;
+    }
+
+    .settings-group {
+      margin-bottom: 22px;
+    }
+
+    .settings-group .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted-dim);
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .settings-group:first-child .section-label {
+      padding-top: 2px;
+    }
+
+    #screen-settings .settings-box {
+      margin-bottom: 0;
+      border-radius: 14px;
+      box-shadow: none;
+      background: var(--surface-modal);
+    }
+
+    #screen-settings .row--settings-root {
+      font-weight: 700;
+      font-size: 16px;
+      min-height: 54px;
+    }
+
+    #screen-settings .row--settings-root .row-label {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    #screen-settings .row--settings-root .chevron {
+      color: rgba(255, 255, 255, 0.42);
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    #screen-settings .settings-box--logout {
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    #screen-settings .settings-box--logout .row--logout {
+      justify-content: space-between;
+      color: var(--logout-red);
+      min-height: 54px;
+    }
+
+    #screen-settings .settings-box--logout .row--logout .row-left {
+      justify-content: flex-start;
+      gap: 12px;
+    }
+
+    #screen-settings .settings-box--logout .row--logout .row-label {
+      color: var(--logout-red);
+      font-weight: 700;
+      text-transform: none;
+    }
+
+    #screen-settings .settings-box--logout .row--logout .chevron {
+      color: rgba(255, 47, 47, 0.65);
+    }
+
+    #screen-settings .logout-icon-svg {
+      color: var(--logout-red);
+    }
+
+    #screen-settings .settings-box--logout .row--logout:active {
+      background: rgba(255, 52, 52, 0.14);
+    }
+
+    #screen-settings .nav::after {
+      opacity: 0.35;
     }
 
     .sub-screen-hint {
@@ -818,7 +902,7 @@
       <div class="hero">
         <p class="hero-logo">Account Settings v1</p>
         <p class="hero-sub">
-          Tap below to open the v1 Settings flow — collapsed section headers (including Notifications), then drill into each section.
+          Tap below to open Settings — grouped section headers on a black canvas, then drill into each area. Log out sits alone at the bottom with no group label.
         </p>
         <button type="button" class="btn-primary" id="btnOpenSettings">Open Settings</button>
       </div>
@@ -832,29 +916,42 @@
         <h1 class="nav-title">Setting</h1>
         <span></span>
       </header>
-      <main class="content content--collapsed">
+      <main class="content content--collapsed settings-root">
         <div class="collapsed-stack">
-          <div class="settings-box" role="navigation" aria-label="Settings sections">
-            <button type="button" class="row" id="navGeneral">
-              <span class="row-label">General</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </button>
-            <button type="button" class="row" id="navAccount">
-              <span class="row-label">Account</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </button>
-            <button type="button" class="row" id="navNotifications">
-              <span class="row-label">Notifications</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </button>
-            <button type="button" class="row" id="navTerms">
-              <span class="row-label">Terms and Policies</span>
-              <span class="chevron" aria-hidden="true">›</span>
-            </button>
+          <div class="settings-group">
+            <p class="section-label">General</p>
+            <div class="settings-box" role="navigation" aria-label="General">
+              <button type="button" class="row row--settings-root" id="navGeneral">
+                <span class="row-label">General</span>
+                <span class="chevron" aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+          <div class="settings-group">
+            <p class="section-label">Account</p>
+            <div class="settings-box" role="navigation" aria-label="Account">
+              <button type="button" class="row row--settings-root" id="navAccount">
+                <span class="row-label">Account</span>
+                <span class="chevron" aria-hidden="true">›</span>
+              </button>
+              <button type="button" class="row row--settings-root" id="navNotifications">
+                <span class="row-label">Notifications</span>
+                <span class="chevron" aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+          <div class="settings-group">
+            <p class="section-label">Support</p>
+            <div class="settings-box" role="navigation" aria-label="Support">
+              <button type="button" class="row row--settings-root" id="navTerms">
+                <span class="row-label">Terms and Policies</span>
+                <span class="chevron" aria-hidden="true">›</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="settings-box settings-box--logout">
-          <button type="button" class="row row--logout" id="rowLogout" aria-label="log out">
+          <button type="button" class="row row--logout" id="rowLogout" aria-label="Log out">
             <span class="row-left">
               <svg
                 class="logout-icon-svg"
@@ -866,22 +963,23 @@
                 aria-hidden="true"
               >
                 <path
-                  d="M5.25 6.75h6.25M5.25 6.75v10.5M5.25 17.25h6.25"
+                  d="M12 11.25a3.25 3.25 0 1 0 0-6.5 3.25 3.25 0 0 0 0 6.5Z"
                   stroke="currentColor"
                   stroke-width="1.75"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
                 <path
-                  d="M13.5 12H20M17.25 9.25l3 2.75-3 2.75"
+                  d="M5.25 19.25c0-3.73 3.03-6.75 6.75-6.75s6.75 3.02 6.75 6.75"
                   stroke="currentColor"
                   stroke-width="1.75"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
               </svg>
-              <span class="row-label">log out</span>
+              <span class="row-label">Log Out</span>
             </span>
+            <span class="chevron" aria-hidden="true">›</span>
           </button>
         </div>
       </main>
